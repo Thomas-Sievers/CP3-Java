@@ -1,10 +1,10 @@
-package com.example.CP3;
+package br.com.fiap.equipment_rent;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Cp3ApplicationTests {
+class EquipmentRentApplicationTests {
 
 	@Test
 	void contextLoads() {
