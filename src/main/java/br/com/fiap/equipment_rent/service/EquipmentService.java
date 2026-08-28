@@ -4,6 +4,8 @@ import br.com.fiap.equipment_rent.entity.Equipment;
 import br.com.fiap.equipment_rent.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 //Service is the one responsible for checking business rules
 @Service
 public class EquipmentService {
@@ -13,6 +15,11 @@ public class EquipmentService {
     //Spring automatically does dependencies injection
     public EquipmentService(EquipmentRepository repository){
         this.repository = repository;
+    }
+
+    public List<Equipment> list(){
+        //Get all Equipment objects on repository
+        return repository.findAll();
     }
 
     public Equipment searchById(Long id){
