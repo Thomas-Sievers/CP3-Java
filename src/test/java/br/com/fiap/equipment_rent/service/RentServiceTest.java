@@ -33,7 +33,7 @@ class RentServiceTest {
     private Equipment activeEquipment(Long id) {
         return Equipment.builder().id(id).name("Datashow").stock(1).active(true).build();
     }
-    
+
     private Rent validRent() {
         return Rent.builder()
                 .teacher("Joao da Silva")
