@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "rent")
@@ -39,6 +40,12 @@ public class Rent {
     @Column(nullable = false)
     private LocalTime returnTime;
 
-    @Column(nullable = false)
-    private Equipment equipment;
+    //More than one equipment can be rented in the same request
+    @ManyToMany
+    @JoinTable(
+            name = "rent_equipment",
+            joinColumns = @JoinColumn(name = "rent_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id")
+    )
+    private List<Equipment> equipments;
 }
