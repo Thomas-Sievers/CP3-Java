@@ -36,33 +36,50 @@ public class EquipmentController {
 
     //GET http://localhost:8080/equipement/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<Equipment> search(@PathVariable Long id){ //@PathVariable gets the value of {id} and add to path
-        return ResponseEntity.ok( //Response of HTTP (ok == 200)
-                service.searchById(id)
-        );
+    //? means that it can have two different bodies: Equipment when is successful and a String when an error is raised
+    public ResponseEntity<?> search(@PathVariable Long id){ //@PathVariable gets the value of {id} and add to path
+        try {
+            return ResponseEntity.ok( //Response of HTTP (ok == 200)
+                    service.searchById(id)
+            );
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     //POST http://localhost:8080/equipment
     @PostMapping
-    public ResponseEntity<Equipment> post(@RequestBody Equipment equipment){ //@Requestbody transform the JSON sent by the user into an object
-        return ResponseEntity.ok(
-                service.save(equipment)
-        );
+    public ResponseEntity<?> post(@RequestBody Equipment equipment){ //@Requestbody transform the JSON sent by the user into an object
+        try {
+            return ResponseEntity.ok(
+                    service.save(equipment)
+            );
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     //PUT http://localhost/equipment/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<Equipment> update(@PathVariable Long id, @RequestBody Equipment equipment){
-        return ResponseEntity.ok(
-                service.update(id, equipment)
-        );
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Equipment equipment){
+        try {
+            return ResponseEntity.ok(
+                    service.update(id, equipment)
+            );
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     //DELETE http://localhost/equipment/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Equipment> delete(@PathVariable Long id){
-        service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try {
+            service.delete(id);
 
-        return ResponseEntity.noContent().build(); //noContent() returns 204 == operation successful but no return
+            return ResponseEntity.noContent().build(); //noContent() returns 204 == operation successful but no return
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
